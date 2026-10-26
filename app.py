@@ -6,17 +6,14 @@ import pandas as pd
 from dash import Dash, dcc, html, dash_table, Input, Output
 import plotly.express as px
 
+app = Dash(__name__)
+
+# Add server start
+server = app.server
 
 # Repository-local data file
 BASE_DIR = Path(__file__).resolve().parent
 FILE_PATH = BASE_DIR / "retail_inventory.xlsx"
-
-if not FILE_PATH.exists():
-    raise FileNotFoundError(
-        f"File not found: {FILE_PATH}\n"
-        "Place retail_inventory.xlsx in the same GitHub repository folder as app.py."
-    )
-
 
 # Load the three required sheets
 sales = pd.read_excel(
@@ -34,17 +31,7 @@ deliveries = pd.read_excel(
     sheet_name="Deliveries"
 )
 
-# Quick check
-print("Data loaded successfully.")
-print("Sales rows:", len(sales))
-print("Inventory SKUs:", len(inventory))
-print("Delivery rows:", len(deliveries))
-
-print("\nSheets loaded:")
-print("- Sales_Transactions")
-print("- Inventory_Snapshot")
-print("- Deliveries")
-
+# Convert time 
 
 sales["TransactionDate"] = pd.to_datetime(
     sales["TransactionDate"]
