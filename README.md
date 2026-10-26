@@ -1,1 +1,2 @@
-# Retail Inventory
+# Retail Inventory Records
+
